@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
-  
 <head>
+  <!-- Load d3.js -->
+  <script src="https://d3js.org/d3.v4.js"></script>
   <title> SIR Design </title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -78,7 +79,10 @@
     
   <h3>Robot Finder</h3>
   <p>Click on the button to open the dropdown menu.</p>
-
+  <!-- Create a div where the robot pic will be -->
+  <div id="robot_pic"></div>
+   
+    
   <div class="dropdown">
     <button onclick="myFunction()" class="dropbtn">Dropdown</button>
     <div id="myDropdown" class="dropdown-content">
