@@ -214,7 +214,7 @@ document.getElementById('search').onclick = function() {
     console.log(robot_generator(user_object, num_results));
 
     if (num_results > 0) {
-    d3.select("#top_robot").attr("src", "./data/images/" + robot_array[0][0] + ".PNG").attr("width", 352);
+    d3.select("#top_robot").attr("src", "images/" + robot_array[0][0] + ".PNG").attr("width", 352);
     document.getElementById("topRobot-text").innerHTML = ("Your top robot is: " + (robot_array[0][0]).bold())
     }
     d3.select("#extraRobots").html(""); //clear div containing extra robots 
@@ -225,7 +225,7 @@ document.getElementById('search').onclick = function() {
         for (s = 1; s < num_results; s++) { 
             let figure = d3.select("#extraRobots").append('figure')
             let name = String(robot_array[s][0]);
-            figure.append('img').attr("src", "./data/images/" + robot_array[s][0] + ".PNG" )
+            figure.append('img').attr("src", "images/" + robot_array[s][0] + ".PNG" )
             .attr("width", 200); 
             figure.append('figcaption').text( (s+1) + ". " + robot_array[s][0]).style("text-align", "center");
 
