@@ -25,7 +25,7 @@ var robot_indexObj = {}        //creates an object of robot: index
 
 
 //read the data 
-d3.csv("./data/robot_names.xlsx", function(data) { 
+d3.csv("./data/robot_names.csv", function(data) { 
   d3.select("#selectButton")
   .selectAll('myOptions')
    .data(data)
@@ -34,7 +34,7 @@ d3.csv("./data/robot_names.xlsx", function(data) {
   .text(function (d) { return d.ROBOT; }) // text showed in the menu
   .attr("value", function (d, i) { 
       robot_indexObj[d.ROBOT] = i; // double check the right way to get index d3 get data object and index 
-       return ("./data/images/" + d.ROBOT + ".PNG"); })
+       return ("images/" + d.ROBOT + ".PNG"); })
   
 })
 
