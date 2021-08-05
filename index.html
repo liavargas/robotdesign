@@ -1,99 +1,900 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <!-- Load d3.js -->
-  <script src="https://d3js.org/d3.v4.js"></script>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+  rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
+  rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tourney:wght@200;400;500&display=swap" rel="stylesheet">
+  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="papaparse.min.js"></script> -->
+
   <title> SIR Design </title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- Initialize a select button -->
+ 
   <style>
     body { 
       font-family: 'Courier New', monospace;
       background-color: AliceBlue;       
-      border: 40px; 
-      padding: 0% 15%;
+      border: 10px; 
+    }
+    a { 
+      color: #00A4BD;
+      text-decoration: none;
+    }
+    a:hover { 
+      font-weight: 800;
+      text-decoration: underline;
+    }
+
+    .entire_page { 
+      width: 100%; 
+      Display: grid;
+      grid-template-areas: 
+      ". title ."
+      "nav entire .";
+      grid-template-columns: 20% 60% 20%;
+    }
+    .nav { 
+      grid-area: nav; 
+      padding-left: 30px;
+    }
+    .entire { 
+      grid-area: entire; 
+    }
+    .nothing { 
+      grid-area: nothing; 
+    }
+    .blank { 
+      grid-area: blank;
+    }
+    .title { 
+      grid-area: title;
+    }
+
+    h1 {
+      text-align: center; 
+      font-family: 'Tourney', cursive;   
+      font-weight: 500;
+      font-size: 55px;
+     
+    }
+
+    h2 { 
+    }
+
+    .underline { 
+      text-decoration: underline #00A4BD;
+    }
+
+    ul.arrows { 
+      list-style: none;
+      margin-left: -30px;
+
+    }
+
+    .arrows li::before { 
+      content: "\00BB";
+      font-size: 1.6em;
+    }
+
+    ul {
+      list-style: none; /* Remove default bullets */
+    }
+
+    ul li::before {
+      content: "\2022";  /* Add content: \2022 is the CSS Code/unicode for a bullet */
+      color: #00A4BD; /* Change the color */
+      font-weight: bold; /* If you want it to be bold */
+      display: inline-block; /* Needed to add space between the bullet and the text */
+      width: 1em; /* Also needed for space (tweak if needed) */
+      margin-left: -em; /* Also needed for space (tweak if needed) */
+    }
+
+    .numButton { 
+      font-family: 'Courier New', monospace;
+      border: 3px solid #78c2ce;
+      font-size: 18px;
+      border-radius: 2px;
+      background-color: rgb(240, 244, 248);
+      text-align: center;
+      background-color: rgb(247, 248, 248);  
+
+   
+    }
+
+    input[type = "checkbox"]:checked { 
+      background: #00A4BD ;
     }
     
     .intro-border{ 
       border: 3px dashed #00A4BD;
-      padding: 3px;
+      padding: 5px 30px;
     }
- 
-  .dropbtn {
-    background-color: #3498DB;
-    color: white;
-    padding: 16px;
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
-  }
 
-  .dropbtn:hover, .dropbtn:focus {
-    background-color: #2980B9;
-  }
+    .border { 
+      border: 3px dashed #00A4BD;
+      padding: 3px;
+      box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 3px 10px 0 rgba(0,0,0,0.19);
+    }
 
-  .dropdown {
-    position: relative;
-    display: inline-block;
-  }
+    .topborder { 
+      border: 3px dashed #00A4BD;
+      width: 352;
+      height: 204;
+      padding: 3px;
+      box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 3px 10px 0 rgba(0,0,0,0.19);
 
-  .dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f1f1f1;
-    min-width: 160px;
-    overflow: auto;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-  }
+    }
 
-  .dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
+    input[type = "range"]:disabled::-webkit-slider-thumb { 
+      background: grey;
+      color: grey;
+    }
+
+
+    .slider {
+      -webkit-appearance: none;  /* Override default CSS styles */
+      appearance: none;
+      height: 20px; /* Specified height */
+      background: #d3d3d3; /* Grey background */
+      outline: none; /* Remove outline */
+      opacity: 0.8; /* Set transparency (for mouse-over effects on hover) */
+      -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+      transition: opacity .2s;
+      box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 3px 10px 0 rgba(0,0,0,0.19);
+
+
+    }
+
+    /* Mouse-over effects */
+    .slider:hover {
+      opacity: 1; /* Fully shown on mouse-over */
+    }
+
+    /* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+    .slider::-webkit-slider-thumb {
+      -webkit-appearance: none; /* Override default look */
+      appearance: none;
+      width: 20px; /* Set a specific slider handle width */
+      height: 20px; /* Slider handle height */
+      background: #FF8C00; /* Green background */
+      cursor: pointer; /* Cursor on hover */
+    }
+
+    .slider::-moz-range-thumb {
+      width: 20px; /* Set a specific slider handle width */
+      height: 20px; /* Slider handle height */
+      background: #FF8C00; /* Green background */
+      cursor: pointer; /* Cursor on hover */
+    }
+
+    .slider2 {
+      -webkit-appearance: none;  /* Override default CSS styles */
+      appearance: none;
+      height: 20px; /* Specified height */
+      background: #d3d3d3; /* Grey background */
+      outline: none; /* Remove outline */
+      opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+      -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+      transition: opacity .2s;
+      box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 3px 10px 0 rgba(0,0,0,0.19);
+
+    }
+
+    /* Mouse-over effects */
+    .slider2:hover {
+      opacity: 1; /* Fully shown on mouse-over */
+    }
+
+    /* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+    .slider2::-webkit-slider-thumb {
+      -webkit-appearance: none; /* Override default look */
+      appearance: none;
+      width: 20px; /* Set a specific slider handle width */
+      height: 20px; /* Slider handle height */
+      background: #04AA6D; /* Green background */
+      cursor: pointer; /* Cursor on hover */
+    }
+
+    .slider2::-moz-range-thumb {
+      width: 20px; /* Set a specific slider handle width */
+      height: 20px; /* Slider handle height */
+      background: #04AA6D; /* Green background */
+      cursor: pointer; /* Cursor on hover */
+    }
+    
+    .container1 { 
+      width: 100%; 
+      Display: grid;
+      grid-template-areas: 
+      "headerL headerL headerL headerR"
+      "left1 right1 right2 right3"
+      "toptext bottom bottom bottom"
+      "svg svg svg svg";
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+    }
+    
+    .toptext { 
+      grid-area: toptext;
+      text-align: center;
+      padding-top: 30px;
+      
+    }
+    .svg { 
+      grid-area: svg;
+    }
+    
+    .headerL { 
+      grid-area: headerL;
+      padding-bottom: 20px;
+    }
+
+    .headerR { 
+      grid-area: headerR; 
+      justify-self: left;
+      padding-top: 10px;
+    }
+    .pic {
+        grid-area: left1;
+        display: flex;
+      /* padding-bottom: 20px; */
+         align-items: center;
+        justify-content: center; 
+      }
+
+    .d1 {
+        grid-area: right1;
+        padding-left: 15px;
+      }
+    .d2 {
+        grid-area: right2;
+      }
+    .d3 {
+        grid-area: right3;
+      }
+
+    .bottom { 
+      grid-area: bottom;
+      padding: 20px;
+      padding-bottom: 40px;
+    }
+
+    .defContainer {
+      width: 100%; 
+      Display: grid;
+      grid-template-areas: 
+      "header1 header1 header2"
+      "cont1 cont2 cont3";
+      grid-template-columns: repeat(3, 1fr) ;
+    }
+
+    .header1 {
+        grid-area: header1;
+        text-align: left;
+        border-bottom: 1px solid #00A4BD;
+      }
+    .header2 {
+        grid-area: header2;
+        padding-left : 20px;
+        border-left: 1px solid #00A4BD;
+        border-bottom: 1px solid #00A4BD;
+
+      }
+    .cont1 {
+        grid-area: cont1;
+        padding-right: 20px;
+
+      }
+    .cont2 {
+      grid-area: cont2;
+      padding-right: 20px;
+     }
+    .cont3 {
+      grid-area: cont3;
+      border-left: 1px solid #00A4BD;
+      padding-left: 20px;
+    }
+
+    .def_button { 
+      font-family: 'Courier New', monospace;
+      background-color: #80bfc9;  
+      width: 100%;
+      border: 3px solid #80bfc9;
+      text-align: left;
+      display: inline-block;
+      padding: 5px 10px;
+      border-radius: 2px;
+
+    }
+
+    .def_button:hover { 
+      box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 3px 10px 0 rgba(0,0,0,0.19);
+    } 
+
+    .reset_button { 
+      font-family: 'Courier New', monospace ;
+      background-color: rgb(247, 248, 248);  
+      width: 150px;
+      border: 3px solid #78c2ce;
+      text-align: center;
+      display: inline-block;
+      padding: 5px 10px;  
+      font-size: 15px;
+      border-radius: 2px;
+
+    }
+
+    .reset_button:hover { 
+      box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 3px 10px 0 rgba(0,0,0,0.19);
+    } 
+
+    .here_button { 
+      font-family: 'Courier New', monospace ;
+      background-color: rgb(247, 248, 248);  
+      width: 65px;
+      border: 2px solid #78c2ce;
+      text-align: center;
+      display: inline-block;
+      padding: 5px 10px;  
+      font-size: 15px;
+      border-radius: 2px;
+    }
+
+    .here_button:hover { 
+      box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 3px 10px 0 rgba(0,0,0,0.19);
+    } 
+
+    .search_button { 
+      font-family: 'Courier New', monospace;
+      background-color: AliceBlue;  
+      width: 130px;
+      border: 3px solid #78c2ce;
+      text-align: center;
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 2px;
+      background-color: rgb(247, 248, 248);  
+      font-size: 20px;
+    }
+
+    .search_button:hover { 
+      box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 3px 10px 0 rgba(0,0,0,0.19);
+    } 
+
+    .drop_button {  
+      font-family: 'Courier New', monospace;
+      background-color: white;  
+      box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 3px 10px 0 rgba(0,0,0,0.19);
+      border: 3px solid #80bfc9;
+      text-align: center;
+      display: inline-block;
+      padding: 5px 10px;
+      border-radius: 2px;
+      font-size: 15px;
+    }
+
+    .DataContainer {
+      width: 100%; 
+      Display: grid;
+      grid-template-areas: 
+    /* "robotimg hover hover hover" */
+      "robotimg p1 p2 p3";
+      grid-template-columns: 3fr 1fr 1fr 1fr ;
+      align-items: center;
+    }
+
+    .robotimg { 
+      grid-area: robotimg;
+    }
+
+    .p1 { 
+      grid-area: p1;
+      padding-left: 20px;
+      font-size: 15px;
+    }
+
+    .p2 { 
+      grid-area: p2;
+      padding-left: 20px;
+      font-size: 15px;
+
+    }
+    .p3 { 
+      grid-area: p3;
+      padding-left: 20px;
+      font-size: 15px;
+
+    }
+
+    .extraRobots { 
+    
+      display: flex;
+    }
+    .wrap    { 
+      -webkit-flex-wrap: wrap;
+      flex-wrap: wrap;
+    }
+
+    progress { 
+      height: 20px; 
+      width: 120px;
+      border-radius: 8px;
+      padding: 0px;
+      box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 3px 10px 0 rgba(0,0,0,0.19);
+        -webkit-appearance: none;
+    }
+
+    progress:hover:after {
     display: block;
-  }
+    content: attr(value) "%";
+    /* background: linear-gradient(to right, white , aliceblue); */
+    /* border: 3px solid rgb(240, 245, 250); */
+    border-radius: 10px;
+    font-size: smaller;
+    color: grey;
+    font-weight: 550;
+    padding: 4px;
+    transition: opacity 1s;
+    opacity: 1;
+    text-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 3px 10px 0 rgba(0,0,0,0.19);
+    }
+    progress::-webkit-progress-bar {
+      background-color: lightgrey;
+      border-radius: 8px;
+      padding: 4px;
+      transition: width 1s;
+    }
 
-  .dropdown a:hover {background-color: #ddd;}
+    progress ::-moz-progress-bar {
+      background-color: lightgrey;
+      border-radius: 8px;
+      transition: padding-bottom 1s;
+      padding-bottom: var(--value);
+      transform-origin: 0 0;
+      transform: rotate(-90deg) translateX(-15px);
+      padding-left: 15px;
+      height: 0;
+    }
 
-  .show {display: block;}
+      progress[value = "0"]::-webkit-progress-value { background: linear-gradient(to right, rgb(221, 221, 221) , red);border-radius: 8px;border: 3px lightgrey; transition:  width 1s; }
+      progress[value = "1"]::-webkit-progress-value {background: linear-gradient(to right, rgb(221, 221, 221) , red);border-radius: 8px; border: 3px lightgrey; transition:  width 1s; }
+      progress[value = "2"]::-webkit-progress-value { background: linear-gradient(to right, rgb(221, 221, 221) , red); border-radius: 8px; border: 3px lightgrey; transition:  width 1s; }
+      progress[value = "3"]::-webkit-progress-value { background: linear-gradient(to right, rgb(221, 221, 221) , red); border-radius: 8px;border: 3px lightgrey; transition:  width 1s; }
+      progress[value = "4"]::-webkit-progress-value {background: linear-gradient(to right, rgb(221, 221, 221) , red);border-radius: 8px;border: 3px lightgrey;transition:  width 1s; }
+      progress[value = "5"]::-webkit-progress-value {background: linear-gradient(to right, rgb(221, 221, 221) , red); border-radius: 8px; border: 3px lightgrey;transition:  width 1s; }
+      progress[value = "6"]::-webkit-progress-value { background: linear-gradient(to right, rgb(221, 221, 221) , red);border-radius: 8px;border: 3px lightgrey;transition:  width 1s; }
+      progress[value = "7"]::-webkit-progress-value {background: linear-gradient(to right, rgb(221, 221, 221) , red); border-radius: 8px;border: 3px lightgrey;transition:  width 1s; }
+      progress[value = "8"]::-webkit-progress-value {background: linear-gradient(to right, rgb(221, 221, 221) , red); border-radius: 8px; border: 3px lightgrey;transition:  width 1s; }
+      progress[value = "9"]::-webkit-progress-value {background: linear-gradient(to right, rgb(221, 221, 221) , red);border-radius: 8px;border: 3px lightgrey;transition:  width 1s; }
+      progress[value = "10"]::-webkit-progress-value { background: linear-gradient(to right, rgb(221, 221, 221) , red);border-radius: 8px; border: 3px lightgrey; transition:  width 1s; }
+      progress[value = "11"]::-webkit-progress-value { background: linear-gradient(to right, rgb(221, 221, 221) , red);border-radius: 8px;border: 3px lightgrey;transition:  width 1s; }
+      progress[value = "12"]::-webkit-progress-value { background: linear-gradient(to right, rgb(221, 221, 221) , red); border-radius: 8px; border: 3px lightgrey;transition:  width 1s; }
+      progress[value = "13"]::-webkit-progress-value { background: linear-gradient(to right, rgb(221, 221, 221) , red);border-radius: 8px;border: 3px lightgrey;transition:  width 1s; }
+      progress[value = "14"]::-webkit-progress-value { background: linear-gradient(to right, rgb(221, 221, 221) , red);border-radius: 8px;border: 3px lightgrey; transition:  width 1s; }
+      progress[value = "15"]::-webkit-progress-value {background: linear-gradient(to right, rgb(221, 221, 221) , red);border-radius: 8px;border: 3px lightgrey;transition:  width 1s; }
+      progress[value = "16"]::-webkit-progress-value { background: linear-gradient(to right, rgb(221, 221, 221) , red);border-radius: 8px; border: 3px lightgrey; transition:  width 1s; }
+      progress[value = "17"]::-webkit-progress-value { background: linear-gradient(to right, rgb(221, 221, 221) , red);border-radius: 8px;border: 3px lightgrey;transition:  width 1s; }
+      progress[value = "18"]::-webkit-progress-value { background: linear-gradient(to right, rgb(221, 221, 221) , red); border-radius: 8px; border: 3px lightgrey;transition:  width 1s; }
+      progress[value = "19"]::-webkit-progress-value { background: linear-gradient(to right, rgb(221, 221, 221) , red);border-radius: 8px;border: 3px lightgrey;transition:  width 1s; }
+      progress[value= "20"]::-webkit-progress-value { background: linear-gradient(to right,rgb(221, 221, 221) , orange); border-radius: 8px;transition: width 1s;}
+      progress[value= "21"]::-webkit-progress-value { background: linear-gradient(to right,rgb(221, 221, 221) , orange); border-radius: 8px;transition: width 1s;}
+      progress[value= "22"]::-webkit-progress-value { background: linear-gradient(to right,rgb(221, 221, 221) , orange); border-radius: 8px;transition: width 1s;}
+      progress[value= "23"]::-webkit-progress-value { background: linear-gradient(to right,rgb(221, 221, 221) , orange); border-radius: 8px;transition: width 1s;}
+      progress[value= "24"]::-webkit-progress-value { background: linear-gradient(to right,rgb(221, 221, 221) , orange); border-radius: 8px;transition: width 1s;}
+      progress[value= "25"]::-webkit-progress-value { background: linear-gradient(to right,rgb(221, 221, 221) , orange); border-radius: 8px;transition: width 1s;}
+      progress[value= "26"]::-webkit-progress-value { background: linear-gradient(to right,rgb(221, 221, 221) , orange); border-radius: 8px;transition: width 1s;}
+      progress[value= "27"]::-webkit-progress-value { background: linear-gradient(to right,rgb(221, 221, 221) , orange); border-radius: 8px;transition: width 1s;}
+      progress[value= "28"]::-webkit-progress-value { background: linear-gradient(to right,rgb(221, 221, 221) , orange); border-radius: 8px;transition: width 1s;}
+      progress[value= "29"]::-webkit-progress-value { background: linear-gradient(to right,rgb(221, 221, 221) , orange); border-radius: 8px;transition: width 1s;}
+      progress[value= "30"]::-webkit-progress-value { background: linear-gradient(to right,rgb(221, 221, 221) , orange); border-radius: 8px;transition: width 1s;}
+      progress[value= "31"]::-webkit-progress-value { background: linear-gradient(to right,rgb(221, 221, 221) , orange); border-radius: 8px;transition: width 1s;}
+      progress[value= "32"]::-webkit-progress-value { background: linear-gradient(to right,rgb(221, 221, 221) , orange); border-radius: 8px;transition: width 1s;}
+      progress[value= "33"]::-webkit-progress-value { background: linear-gradient(to right,rgb(221, 221, 221) , orange); border-radius: 8px;transition: width 1s;}
+      progress[value= "34"]::-webkit-progress-value { background: linear-gradient(to right,rgb(221, 221, 221) , orange); border-radius: 8px;transition: width 1s;}
+      progress[value= "35"]::-webkit-progress-value { background: linear-gradient(to right,rgb(221, 221, 221) , orange); border-radius: 8px;transition: width 1s;}
+      progress[value= "36"]::-webkit-progress-value { background: linear-gradient(to right,rgb(221, 221, 221) , orange); border-radius: 8px;transition: width 1s;}
+      progress[value= "37"]::-webkit-progress-value { background: linear-gradient(to right,rgb(221, 221, 221) , orange); border-radius: 8px;transition: width 1s;}
+      progress[value= "38"]::-webkit-progress-value { background: linear-gradient(to right,rgb(221, 221, 221) , orange); border-radius: 8px;transition: width 1s;}
+      progress[value= "39"]::-webkit-progress-value { background: linear-gradient(to right,rgb(221, 221, 221) , orange); border-radius: 8px;transition: width 1s;}
+      progress[value= "40"]::-webkit-progress-value {background: linear-gradient(to right, rgb(221, 221, 221) , yellow); border-radius: 8px;-webkit-transition : width 1s;transition : width 1s;}
+      progress[value= "41"]::-webkit-progress-value {background: linear-gradient(to right, rgb(221, 221, 221) , yellow); border-radius: 8px;-webkit-transition : width 1s;transition : width 1s;}
+      progress[value= "42"]::-webkit-progress-value {background: linear-gradient(to right, rgb(221, 221, 221) , yellow); border-radius: 8px;-webkit-transition : width 1s;transition : width 1s;}
+      progress[value= "43"]::-webkit-progress-value {background: linear-gradient(to right, rgb(221, 221, 221) , yellow); border-radius: 8px;-webkit-transition : width 1s;transition : width 1s;}
+      progress[value= "44"]::-webkit-progress-value {background: linear-gradient(to right, rgb(221, 221, 221) , yellow); border-radius: 8px;-webkit-transition : width 1s;transition : width 1s;}
+      progress[value= "45"]::-webkit-progress-value {background: linear-gradient(to right, rgb(221, 221, 221) , yellow); border-radius: 8px;-webkit-transition : width 1s;transition : width 1s;}
+      progress[value= "46"]::-webkit-progress-value {background: linear-gradient(to right, rgb(221, 221, 221) , yellow); border-radius: 8px;-webkit-transition : width 1s;transition : width 1s;}
+      progress[value= "47"]::-webkit-progress-value {background: linear-gradient(to right, rgb(221, 221, 221) , yellow); border-radius: 8px;-webkit-transition : width 1s;transition : width 1s;}
+      progress[value= "48"]::-webkit-progress-value {background: linear-gradient(to right, rgb(221, 221, 221) , yellow); border-radius: 8px;-webkit-transition : width 1s;transition : width 1s;}
+      progress[value= "49"]::-webkit-progress-value {background: linear-gradient(to right, rgb(221, 221, 221) , yellow); border-radius: 8px;-webkit-transition : width 1s;transition : width 1s;}
+      progress[value= "50"]::-webkit-progress-value {background: linear-gradient(to right, rgb(221, 221, 221) , yellow); border-radius: 8px;-webkit-transition : width 1s;transition : width 1s;}
+      progress[value= "51"]::-webkit-progress-value {background: linear-gradient(to right, rgb(221, 221, 221) , yellow); border-radius: 8px;-webkit-transition : width 1s;transition : width 1s;}
+      progress[value= "52"]::-webkit-progress-value {background: linear-gradient(to right, rgb(221, 221, 221) , yellow); border-radius: 8px;-webkit-transition : width 1s;transition : width 1s;}
+      progress[value= "53"]::-webkit-progress-value {background: linear-gradient(to right, rgb(221, 221, 221) , yellow); border-radius: 8px;-webkit-transition : width 1s;transition : width 1s;}
+      progress[value= "54"]::-webkit-progress-value {background: linear-gradient(to right, rgb(221, 221, 221) , yellow); border-radius: 8px;-webkit-transition : width 1s;transition : width 1s;}
+      progress[value= "55"]::-webkit-progress-value {background: linear-gradient(to right, rgb(221, 221, 221) , yellow); border-radius: 8px;-webkit-transition : width 1s;transition : width 1s;}
+      progress[value= "56"]::-webkit-progress-value {background: linear-gradient(to right, rgb(221, 221, 221) , yellow); border-radius: 8px;-webkit-transition : width 1s;transition : width 1s;}
+      progress[value= "57"]::-webkit-progress-value {background: linear-gradient(to right, rgb(221, 221, 221) , yellow); border-radius: 8px;-webkit-transition : width 1s;transition : width 1s;}
+      progress[value= "58"]::-webkit-progress-value {background: linear-gradient(to right, rgb(221, 221, 221) , yellow); border-radius: 8px;-webkit-transition : width 1s;transition : width 1s;}
+      progress[value= "59"]::-webkit-progress-value {background: linear-gradient(to right, rgb(221, 221, 221) , yellow); border-radius: 8px;-webkit-transition : width 1s;transition : width 1s;}
+      progress[value= "60"]::-webkit-progress-value {background: linear-gradient(to right, rgb(221, 221, 221) , green); border-radius: 8px; transition: width 1s;}
+      progress[value= "61"]::-webkit-progress-value {background: linear-gradient(to right, rgb(221, 221, 221) , green); border-radius: 8px; transition: width 1s;}
+      progress[value= "62"]::-webkit-progress-value {background: linear-gradient(to right, rgb(221, 221, 221) , green); border-radius: 8px; transition: width 1s;}
+      progress[value= "63"]::-webkit-progress-value {background: linear-gradient(to right, rgb(221, 221, 221) , green); border-radius: 8px; transition: width 1s;}
+      progress[value= "64"]::-webkit-progress-value {background: linear-gradient(to right, rgb(221, 221, 221) , green); border-radius: 8px; transition: width 1s;}
+      progress[value= "65"]::-webkit-progress-value {background: linear-gradient(to right, rgb(221, 221, 221) , green); border-radius: 8px; transition: width 1s;}
+      progress[value= "66"]::-webkit-progress-value {background: linear-gradient(to right, rgb(221, 221, 221) , green); border-radius: 8px; transition: width 1s;}
+      progress[value= "67"]::-webkit-progress-value {background: linear-gradient(to right, rgb(221, 221, 221) , green); border-radius: 8px; transition: width 1s;}
+      progress[value= "68"]::-webkit-progress-value {background: linear-gradient(to right, rgb(221, 221, 221) , green); border-radius: 8px; transition: width 1s;}
+      progress[value= "69"]::-webkit-progress-value {background: linear-gradient(to right, rgb(221, 221, 221) , green); border-radius: 8px; transition: width 1s;}
+      progress[value= "70"]::-webkit-progress-value {background: linear-gradient(to right, rgb(221, 221, 221) , green); border-radius: 8px; transition: width 1s;}
+      progress[value= "71"]::-webkit-progress-value {background: linear-gradient(to right, rgb(221, 221, 221) , green); border-radius: 8px; transition: width 1s;}
+      progress[value= "72"]::-webkit-progress-value {background: linear-gradient(to right, rgb(221, 221, 221) , green); border-radius: 8px; transition: width 1s;}
+      progress[value= "73"]::-webkit-progress-value {background: linear-gradient(to right, rgb(221, 221, 221) , green); border-radius: 8px; transition: width 1s;}
+      progress[value= "74"]::-webkit-progress-value {background: linear-gradient(to right, rgb(221, 221, 221) , green); border-radius: 8px; transition: width 1s;}
+      progress[value= "75"]::-webkit-progress-value {background: linear-gradient(to right, rgb(221, 221, 221) , green); border-radius: 8px; transition: width 1s;}
+      progress[value= "76"]::-webkit-progress-value {background: linear-gradient(to right, rgb(221, 221, 221) , green); border-radius: 8px; transition: width 1s;}
+      progress[value= "77"]::-webkit-progress-value {background: linear-gradient(to right, rgb(221, 221, 221) , green); border-radius: 8px; transition: width 1s;}
+      progress[value= "78"]::-webkit-progress-value {background: linear-gradient(to right, rgb(221, 221, 221) , green); border-radius: 8px; transition: width 1s;}
+      progress[value= "79"]::-webkit-progress-value {background: linear-gradient(to right, rgb(221, 221, 221) , green); border-radius: 8px; transition: width 1s;}
+      progress[value= "80"]::-webkit-progress-value {background: linear-gradient(to right, rgb(221, 221, 221) , green); border-radius: 8px; transition: width 1s;}
+      progress[value= "81"]::-webkit-progress-value {background: linear-gradient(to right, rgb(221, 221, 221) , green); border-radius: 8px; transition: width 1s;}
+      progress[value= "82"]::-webkit-progress-value {background: linear-gradient(to right, rgb(221, 221, 221) , green); border-radius: 8px; transition: width 1s;}
+      progress[value= "83"]::-webkit-progress-value {background: linear-gradient(to right, rgb(221, 221, 221) , green); border-radius: 8px; transition: width 1s;}
+      progress[value= "84"]::-webkit-progress-value {background: linear-gradient(to right, rgb(221, 221, 221) , green); border-radius: 8px; transition: width 1s;}
+      progress[value= "85"]::-webkit-progress-value {background: linear-gradient(to right, rgb(221, 221, 221) , green); border-radius: 8px; transition: width 1s;}
+      progress[value= "86"]::-webkit-progress-value {background: linear-gradient(to right, rgb(221, 221, 221) , green); border-radius: 8px; transition: width 1s;}
+      progress[value= "87"]::-webkit-progress-value {background: linear-gradient(to right, rgb(221, 221, 221) , green); border-radius: 8px; transition: width 1s;}
+      progress[value= "88"]::-webkit-progress-value {background: linear-gradient(to right, rgb(221, 221, 221) , green); border-radius: 8px; transition: width 1s;}
+      progress[value= "89"]::-webkit-progress-value {background: linear-gradient(to right, rgb(221, 221, 221) , green); border-radius: 8px; transition: width 1s;}
+      progress[value= "90"]::-webkit-progress-value {background: linear-gradient(to right, rgb(221, 221, 221) , green); border-radius: 8px; transition: width 1s;}
+      progress[value= "91"]::-webkit-progress-value {background: linear-gradient(to right, rgb(221, 221, 221) , green); border-radius: 8px; transition: width 1s;}
+      progress[value= "92"]::-webkit-progress-value {background: linear-gradient(to right, rgb(221, 221, 221) , green); border-radius: 8px; transition: width 1s;}
+      progress[value= "93"]::-webkit-progress-value {background: linear-gradient(to right, rgb(221, 221, 221) , green); border-radius: 8px; transition: width 1s;}
+      progress[value= "94"]::-webkit-progress-value {background: linear-gradient(to right, rgb(221, 221, 221) , green); border-radius: 8px; transition: width 1s;}
+      progress[value= "95"]::-webkit-progress-value {background: linear-gradient(to right, rgb(221, 221, 221) , green); border-radius: 8px; transition: width 1s;}
+      progress[value= "96"]::-webkit-progress-value {background: linear-gradient(to right, rgb(221, 221, 221) , green); border-radius: 8px; transition: width 1s;}
+      progress[value= "97"]::-webkit-progress-value {background: linear-gradient(to right, rgb(221, 221, 221) , green); border-radius: 8px; transition: width 1s;}
+      progress[value= "98"]::-webkit-progress-value {background: linear-gradient(to right, rgb(221, 221, 221) , green); border-radius: 8px; transition: width 1s;}
+      progress[value= "99"]::-webkit-progress-value {background: linear-gradient(to right, rgb(221, 221, 221) , green); border-radius: 8px; transition: width 1s;}
+      progress[value= "100"]::-webkit-progress-value {background: linear-gradient(to right, rgb(221, 221, 221) , green); border-radius: 8px; transition: width 1s;}
+
+
+    .material-icons.blue { 
+      color: #00A4BD;
+      font-size: 20px;
+      position: relative;
+      top: 5px;
+    }
+
+    .material-icons-outlined.blue { 
+      color: #00A4BD;
+      font-size: 20px;
+      position: relative;
+      top: 5px;
+      margin-left: 10px;
+    }
+
+    .material-icons-outlined.big { 
+      color: #00A4BD;
+      font-size: 40px;
+      position: relative;
+      top: 10px;
+      margin-left: 10px;
+    }
+
+ 
   </style>
-  </head>
+  
+</head>
 
   
 <body>
-  <header>
-  </header> 
-  
-  <main> 
+
+  <main>   
+  <div class = "entire_page"> 
+
+    <div class = "title">
+      <h1 > Socially Interactive Robot Design </h1>
+      <hr style="height:1px; border-width:0;  color:gray; background: #78c2ce">
+    </div>
+
+    <div class = "nav"> 
+      <h3>Contents </h3>
+      <p><a href = "#Introduction">Introduction</a></p>
+      <p><a href = "#Background">Background</a></p>
+      <p><a href = "#TheProblem">The Problem</a></p>
+      <p><a href = "#AttributeDef">Attribute Definitons</a></p>
+      <p><a href = "#RobotGenerator">Robot Generator</a></p>
+      <p><a href = "#RobotFinder">Robot Finder</a></p>
+      <p><a href = "#References">References</a></p>
+
+    </div>
+
+    <div class = "entire">
+
+    <a name = "Introduction"> </a>
+      <h2><span class = "underline">Introduction</span>:</h2>    <p> Research has shown that humans develop perceieved notions of the social and functional capabilities of a robot simply by looking at it.
+      For example, an observer will make assumptions if a robot is a male or female based on its waist-to-hip ratio. These perceived notions influence
+      an individual's expectations of how the robot should behave and function [1]. 
+      <ul class = "arrows" style = "margin-left: 10px"> 
+          <li>When expectations for how the robot should act <b>do not agree</b> with the true capabilies of the robot <span style = "color: #00A4BD; font-size: 2em">&#8594;</span> user dissatisfaction <span class="material-icons blue">sentiment_dissatisfied</span></li>
+          <li>When they <b>agree</b> <span style = "color: #00A4BD; font-size: 2em">&#8594;</span> facilitates positive human-robot interaction (HRI) <span class="material-icons blue">sentiment_satisfied_alt</span> <span> [2] </span>
+            </li>
+        </ul>
+      Therefore, it is important to learn how to 
+      design a robot that corresponds with its purpose and how it will act socially.
+  </p>
+  <br>
+  <a name = "Background"> </a>
+ <div class = "intro-border"> <h2>Background</h2>
+  <p>A research paper consisting of 3 studies was conducted with the goal of using design metaphors to understand user's perceptions of socially interactive robots (SIR). The study used a dataset of 165 SIR embodiments to asses a user's social and functional expectations for the robot. 
+    Users participated in each of the three studies via Mechanical Turk survey questions. 
     
-  <h1 style ="text-align: center;"> Socially Interactive Robot Design </h1>
-  <hr/>
-  
- <div class = "intro-border">
-    <h3> Introduction </h3>
-    <p>The physical design and shape of a robot influences a person’s expectations of how the robot should behave and function. 
-      The appearance of the robot will also affect how a person interacts with a robot. Therefore, it is important to learn how to 
-      design a robot that corresponds with its purpose and how it will act socially. </p>
+    <ul class = "arrows">
+      <li>A modified version of the Robotic Social Attributes Scale (RoSAS) [3] was used to measure warmth, competence and discomfort </li>
+      <li>Masculinity and Femininity were measured using the Bem Sex-Role Inventory Scale [4] </li>  
+      <li>Social Role [5], Identity Closeness [6] and Likeability from the Godspeed scale [7] were all measured on a 9 point differential scale further explained in the attribute definitions</li>
+      <li>A modified version of the Embodiment and Corporeality of Artificial Agents Scale (EmCorp-Scale) [8] was used to measure user perceptions of the functional attributes: shared perceptions & interpretation, tactile interaction & mobility and non-verbal expressiveness</li>
+    </ul>
+    Click <button class = "here_button" onclick = "window.open('https://interaction-lab.github.io/robot-metaphors/#section2', '_blank')">HERE</button> for more information of the study and visual explorations of the dataset. 
+
+  </p>
  </div>
-    
-  <h3>Robot Finder</h3>
-  <p>Click on the button to open the dropdown menu.</p>
-  <!-- Create a div where the robot pic will be -->
-  <div id="robot_pic"></div>
-   
-  <select id="selectButton"> </select>
+  <br>
+
+  <a name = "TheProblem"> </a>
+  <h2><span class = "underline">The Problem</span>:</h2>
+  <p> 
+  <ul class = "arrows">
+    <li>Often times robot interaction designers choose a robot embodiment ambiguously or based on what they have available instead of using <b>research/data</b> </li>
+    <li>Robots are very expensive so it is important to have a solid idea the type of robot embodient that is best suited for a particular interaction scenario before a robot is purchased </li>   </ul>
+    <span style = "padding-left: 0px;"><span class="material-icons-outlined blue">lightbulb</span> <u>Looking Ahead</u>: In <b>industry</b> it is important to deliver robots to the users that will match their expectations for how the robot should act or else the product will not perform well </span>
+  
+ </p>
+
+ <a name = "AttributeDef"> </a>
+  <br>
+ <button onclick="toggleText()" class = "def_button"> <h2 style = "color: black"> Attribute Definitions:</h2> </button>
+
+<!-- <h2>Attribute Definitions: </h2>  -->
+  <div class = "defContainer" id = "Definitions">
+    <div class = "header1" > 
+    <h3> <svg width = 20px height = 20px> 
+            <rect x = "0" y = "0" width = 20px height = 20px fill = #FF8C00></rect>
+    </svg> Social Perception</h3>
+    </div>
+  
+  <div class = "header2" > 
+    <h3> <svg width = 20px height = 20px> 
+      <rect x = "0" y = "0" width = 20px height = 20px fill = #04AA6D></rect>
+</svg> Functional Perception</h3>
+  </div>
+
+  <div class = "cont1" > 
+    <ul> 
+      <li> <b>Warmth</b>: related to the perception that another agent may want to help or harm us </li> 
+      <li> <b>Competence</b>: related to the perception that another agent has the ability to help or harm us </li>
+      <li> <b>Discomfort</b>: related to the awkwardness of the robot </li>
+      <li> <b>Masculinity</b>: how masculine the robot appears</li>
+    </ul> 
+  </div>
+
+  <div class = "cont2" > 
+    <ul> 
+      <li> <b>Femininity</b>: how feminine the robot appears </li> 
+      <li> <b>Social Role</b>: measure of the interaction dynamics between the person and robot in an interaction: 1 = subordinate, 5 = robot is a peer, 9 = robot is a superior </li>
+      <li> <b>Likeability</b>: 1 indicates raters strongly "disliked" the robot and 9 indicates the rater “strongly likes” the robot </li>
+      <li> <b>Identity Closeness</b>: measures the degree of in-group identification of the person with the robot. 1 = robot looks nothing like the rater, 9 = robot is exactly like the rater</li>
+    </ul> 
+  </div>
+
+  <div class = "cont3" > 
+    <ul> 
+      <li> <b>Shared perception & Interpretation</b>: is a measure of the perceived perceptual capabilities (such as vision and hearing of the robot)</li> 
+      <li> <b>Tactile Interaction & Mobility</b>: a measure of the perceived ability of the robot to navigate in space and physically contact humans and objects </li>
+      <li> <b>Non-verbal Expressiveness</b>: Relates to the robot’s ability to use gestures and facial expressions</li>
+    </ul> 
+  </div>
+
+  </div>  
+
+  <br> <br>
+  <a name = "RobotGenerator"> </a>
+  <hr style="height:4px; border-width:0;  color:gray; background: #00A4BD">
+
+<h2> <span class="material-icons-outlined big">smart_toy</span> Robot Generator: </h2>
+<div class = "container1">
+  <div class = "headerL">
+    <p>Show me the top <input type="number" id="num_robots" name="num_robots" class = "numButton"
+     min="0" max="200" onchange="updateNum()"> robots that match my search   </p> 
+</div>
+
+  <div class = "headerR">
+    <input type="button" class = "reset_button" id = "reset" value ="Reset Filters">
+  </div>
+
+  <div class = "pic"> 
+    <div class = "topborder" width = 352 height = 203.25 > 
+    <img width = 250 id = "top_robot" src = "https://www.pngall.com/wp-content/uploads/2/Question-Mark-PNG-Pic.png" >
+   </div>
+  </div>
+
+  <div id="topRobot-text" class = "toptext">
+  </div>
+
+    <div class = "d1">
+      
+      <div> <input type="checkbox"  id = "warmth" onchange="document.getElementById('myRange1').disabled = !this.checked;update_object(user_object);" />
+      <label for = "warmth"> Warmth:</label> </div>
+      <input type="range" onchange = "update_object(user_object)" min="-3" max="3" disabled value="0" step = ".1" id = "myRange1" class = "slider">
+      <span id="demo1"></span>
+       <br> <br>
+      <div> <input type="checkbox"  id = "competence" onchange="document.getElementById('myRange2').disabled = !this.checked;update_object(user_object);" />
+      <label for = "competence">Competence:</label> </div>
+      <input type="range" onchange = "update_object(user_object)" min="-3" max="3" disabled value="0" step = ".1" id = "myRange2" class = "slider">
+      <span id="demo2"></span>
+      <br> <br>
+      <div> <input type="checkbox"  id = "Discomfort" onchange="document.getElementById('myRange3').disabled = !this.checked;update_object(user_object);" />
+      <label for = "Discomfort">Discomfort:</label> </div>
+      <input type="range" onchange = "update_object(user_object)" min="-3" max="3" disabled value="0"  step = ".1" id = "myRange3" class = "slider">
+      <span id="demo3"></span>
+      <br> <br>
+      <div> <input type="checkbox"  id = "Masculinity" onchange="document.getElementById('myRange4').disabled = !this.checked;update_object(user_object);" />
+      <label for = "Masculinity">Masculinity:</label> </div>
+      <input type="range" onchange = "update_object(user_object)" min="-3" max="3" disabled value="0"  step = ".1" id = "myRange4" class = "slider">
+      <span id="demo4"></span>
+    </div>
+
+    <div class = "d2">
+     
+      <div> <input type="checkbox"  id = "Femininity" onchange="document.getElementById('myRange5').disabled = !this.checked;update_object(user_object);" />
+      <label for = "Femininity">Femininity:</label> </div>
+      <input type="range" onchange = "update_object(user_object)" min="-3" max="3" disabled value="0"  step = ".1" id = "myRange5" class = "slider">
+      <span id="demo5"></span>
+      <br> <br>
+      <div> <input type="checkbox"  id = "Role" onchange="document.getElementById('myRange6').disabled = !this.checked;update_object(user_object);" />
+      <label for = "Role">Role:</label> </div>
+      <input type="range" onchange = "update_object(user_object)" min="1" max="9" disabled value="0"  step = ".1" id = "myRange6" class = "slider">
+      <span id="demo6"></span>
+      <br> <br>
+      <div> <input type="checkbox"  id = "Likeability" onchange="document.getElementById('myRange7').disabled = !this.checked;update_object(user_object);" />
+      <label for = "Likeability">Likeability:</label> </div>
+      <input type="range" onchange = "update_object(user_object)" min="1" max="9" disabled value="0"  step = ".1" id = "myRange7" class = "slider">
+      <span id="demo7"></span>
+      <br> <br>
+      <div> <input type="checkbox"  id = "Identity" onchange="document.getElementById('myRange8').disabled = !this.checked;update_object(user_object);" />
+      <label for = "Identity">Identity Closeness:</label> </div>
+      <input type="range" onchange = "update_object(user_object)" min="1" max="9" disabled value="0"  step = ".1" id = "myRange8" class = "slider">
+      <span id="demo8"></span>
+
+    </div>
+
+     <div class = "bottom" style = "text-align: center;"> 
+      <input class = "search_button" id ="search" type="button" value= "Search">
+    </div>
 
     
-  <div class="dropdown">
-    <button onclick="myFunction()" class="dropbtn">Dropdown</button>
-    <div id="myDropdown" class="dropdown-content">
-      <a href="images/Aeolus.PNG"  target = “_blank” >Aeolus</a>
-      <a href="images/Aibo (1999).PNG"  target = “_blank”>Aibo (1999)</a>
-      <a href="images/Aibo.PNG"  target = “_blank”>Aibo</a>
+    <div class = "d3">
+      <div> <input type="checkbox"  id = "Perception" onchange="document.getElementById('myRange9').disabled = !this.checked;update_object(user_object);" />
+      <label for = "Perception">Perception & Interpretation:</label> </div>
+      <input type="range" onchange = "update_object(user_object)" min="-3" max="3" disabled value="0"  step = ".1"  id = "myRange9" class = "slider2">
+      <span id="demo9"></span>
+      <br> <br>
+      <div> <input type="checkbox"  id = "Tactile" onchange="document.getElementById('myRange10').disabled = !this.checked;update_object(user_object);" />
+      <label for = "Tactile">Tactile Interaction & Mobility:</label> </div>
+      <input type="range" onchange = "update_object(user_object)" min="-3" max="3" disabled value="0"  step = ".1"  id = "myRange10" class = "slider2">
+      <span id="demo10"></span>
+      <br> <br>
+      <div> <input type="checkbox"  id = "Non_verbal" onchange="document.getElementById('myRange11').disabled = !this.checked;update_object(user_object);" />
+      <label for = "Non_verbal">Non-verbal Expressiveness:</label> </div>
+      <input type="range" onchange = "update_object(user_object)" min="-3" max="3" disabled value="0"  step = ".1"  id = "myRange11" class = "slider2">
+      <span id="demo11"></span>
+    
+    </div>
+<br> <br>
+    <div class = "svg">
+    <div id="otherRobot-text" >
+    </div>
+    <div id = "extraRobots" class = "extraRobots wrap svg"> 
+    
     </div>
   </div>
+
+</div>
+
+<a name = "RobotFinder"> </a>
+<hr style="height:4px; border-width:0;  color:gray; background: #00A4BD">
+
+  <h2><span class="material-icons-outlined big">search</span> Robot Finder</h2>
+  <p>Click on the button to open the dropdown menu & hover over the progress bars to reveal the data</p>
+  
+  <div class = "DataContainer"> 
+    
+    <div class = "robotimg"> 
+
+      <div style = "text-align: center;">
+        <select id="selectButton" class = "drop_button"> </select> </div> 
+        <br>
+      <img width = 425 id = "robot_pic" class = "border" src = "./data/images/Aeolus.PNG"> </img>
+      
+
+    </div>
+
+
+    <div class = "p1">
+  
+      <label for = "pwarmth"> Warmth: </label>
+      <progress id = "pwarmth" min="0" max="100" class = "progress" data-value = "0" value="30"></progress>  
+
+      <!-- change allprogress bar tags to svg tags  -->
+      <br><br>
+      <label for = "pcompetence"> Competence: </label>
+      <progress id = "pcompetence" min="0" max="100" class = "progress" data-value = "0" value="61" ></progress>
+      <br><br>
+      <label for = "pdiscomfort"> Discomfort: </label>
+      <progress id = "pdiscomfort" min="0" max="100" class = "progress" data-value = "0" value="47"></progress>
+      <br><br>
+      <label for = "pmasculine"> Masculinity: </label>
+      <progress id = "pmasculine" min="0" max="100" class = "progress" data-value = "0" value="65" ></progress>
+    </div>
+
+    <div class = "p2"> 
+      <label for = "pfeminine"> Femininity: </label>
+      <progress id = "pfeminine" min="0" max="100" class = "progress" data-value = "0" value="29"></progress> 
+      <br><br>
+      <label for = "prole"> Social Role: </label>
+      <progress id = "prole" min="0" max="100" class = "progress" data-value = "0" value="36" ></progress>
+      <br><br>
+      <label for = "plikeability"> Likeability: </label>
+      <progress id = "plikeability" min="0" max="100" class = "progress" data-value = "0" value="55"></progress>
+      <br><br>
+      <label for = "pidentify"> Identity Closeness: </label>
+      <progress id = "pidentify" min="0" max="100" class = "progress" data-value = "0" value="25"></progress> 
+    </div>
+
+    <div class = "p3"> 
+      <label for = "pperception"> Perception & Interpretation: </label>
+      <progress id = "pperception" min="0" max="100" class = "progress" data-value = "0" value="40"></progress>
+      <br><br>
+      <label for = "ptactile_mobility"> Tactile Interaction & Mobility:</label>
+      <progress id = "ptactile_mobility" min="0" max="100" class = "progress" data-value = "0" value="72"></progress> 
+      <br><br>
+      <label for = "pnonverbal"> Non-verbal Expressiveness: </label>
+      <progress id = "pnonverbal" min="0" max="100" class = "progress" data-value = "0" value="35"></progress> 
+    </div>
+  </div>
+  
+  <br> <br>
+  <hr style="height:4px; border-width:0;  color:gray; background: #00A4BD">
+
+  <a name = "References"> </a>
+    <h2>References</h2>
+      <p style = "margin-left: 40px;text-indent: -40px;"> 
+      [1] Gabriele Trovato, Cesar Lucho, and Renato Paredes. 2018. She’s electric—the influence of body proportions on perceivedgender of robots across cultures.Robotics7, 3 (2018), 50. </p> 
+      <p style = "margin-left: 40px;text-indent: -40px;"> 
+      [2] Fong, Terrence & Nourbakhsh, Illah & Dautenhahn, Kerstin. (2003). A Survey of Socially Interactive Robots. Robotics and Autonomous Systems. 42. 143-166. 10.1016/S0921-8890(02)00372-X. </p> 
+      <p style = "margin-left: 40px;text-indent: -40px;"> 
+      [3] Colleen M Carpinella, Alisa B Wyman, Michael A Perez, and Steven J Stroessner. 2017. The robotic social attributes scale(RoSAS) development and validation. InProceedings of the 2017 ACM/IEEE International Conference on human-robotinteraction. 254–262 </p> 
+      <p style = "margin-left: 40px;text-indent: -40px;">
+      [4] Sandra L Bem. 1981. Bem sex role inventory.Journal of Personality and Social Psychology(1981)</p> 
+      <p style = "margin-left: 40px;text-indent: -40px;">
+      [5] Eric Deng, Bilge Mutlu, and Maja Mataric.2019.Embodiment in socially  interactive robots.arXiv preprintarXiv:1912.00312(2019) </p>
+      <p style = "margin-left: 40px;text-indent: -40px;">
+      [6] Henri Tajfel.1974.Social identity and intergroup behaviour.Social science information13, 2 (1974), 65–93</p> 
+      <p style = "margin-left: 40px;text-indent: -40px;">
+      [7] Alisa Kalegina, Grace Schroeder, Aidan Allchin, Keara Berlin, and Maya Cakmak. 2018.  Characterizing the designspace of rendered robot faces. InProceedings of the 2018 ACM/IEEE International Conference on Human-Robot Interaction.96–104 </p>
+      <p style = "margin-left: 40px;text-indent: -40px;">
+      [8] Laura Hoffmann, Nikolai Bock, and Astrid M Rosenthal vd Pütten. 2018.  The Peculiarities of Robot Embodiment(EmCorp-Scale) Development, Validation and Initial Test of the Embodiment and Corporeality of Artificial AgentsScale. InProceedings of the 2018 ACM/IEEE International Conference on Human-Robot Interaction. 370–378 </p>
+ 
+
+ 
+  </div>
+
+</div>
 
 </main>
     
@@ -101,10 +902,15 @@
 <footer>
 </footer>
 
-  
+
+
 </body>
  
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script src = "scripts/search.js"></script>
 <script src="scripts/dropdown.js"> </script>
+<script src= "scripts/robot_genFunc.js"></script>
+<script src = "scripts/progressbars.js"></script>
   
   
 </html>
