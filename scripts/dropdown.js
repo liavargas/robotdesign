@@ -25,7 +25,7 @@ var robot_indexObj = {}        //creates an object of robot: index
 
 
 //read the data 
-d3.csv("./data/robot_names.csv", function(data) { 
+d3.csv("./data/robot_names.xlsx", function(data) { 
   d3.select("#selectButton")
   .selectAll('myOptions')
    .data(data)
