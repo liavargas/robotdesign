@@ -140,6 +140,7 @@
       -webkit-appearance: none;  /* Override default CSS styles */
       appearance: none;
       height: 20px; /* Specified height */
+      width: 120px;
       background: #d3d3d3; /* Grey background */
       outline: none; /* Remove outline */
       opacity: 0.8; /* Set transparency (for mouse-over effects on hover) */
@@ -176,6 +177,7 @@
       -webkit-appearance: none;  /* Override default CSS styles */
       appearance: none;
       height: 20px; /* Specified height */
+      width: 120px;
       background: #d3d3d3; /* Grey background */
       outline: none; /* Remove outline */
       opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
@@ -241,6 +243,7 @@
     .pic {
         grid-area: left1;
         display: flex;
+        padding-right: 15px;
       /* padding-bottom: 20px; */
          align-items: center;
         justify-content: center; 
@@ -248,7 +251,7 @@
 
     .d1 {
         grid-area: right1;
-        padding-left: 15px;
+        padding-left: 5px;
       }
     .d2 {
         grid-area: right2;
@@ -731,22 +734,22 @@
       <div> <input type="checkbox"  id = "warmth" onchange="document.getElementById('myRange1').disabled = !this.checked;update_object(user_object);" />
       <label for = "warmth"> Warmth:</label> </div>
       <input type="range" onchange = "update_object(user_object)" min="-3" max="3" disabled value="0" step = ".1" id = "myRange1" class = "slider">
-      <span id="demo1"></span>
+      <span id="demo1" style = "font-size: smaller;"></span>
        <br> <br>
       <div> <input type="checkbox"  id = "competence" onchange="document.getElementById('myRange2').disabled = !this.checked;update_object(user_object);" />
       <label for = "competence">Competence:</label> </div>
       <input type="range" onchange = "update_object(user_object)" min="-3" max="3" disabled value="0" step = ".1" id = "myRange2" class = "slider">
-      <span id="demo2"></span>
+      <span id="demo2" style = "font-size: smaller;"></span>
       <br> <br>
       <div> <input type="checkbox"  id = "Discomfort" onchange="document.getElementById('myRange3').disabled = !this.checked;update_object(user_object);" />
       <label for = "Discomfort">Discomfort:</label> </div>
       <input type="range" onchange = "update_object(user_object)" min="-3" max="3" disabled value="0"  step = ".1" id = "myRange3" class = "slider">
-      <span id="demo3"></span>
+      <span id="demo3" style = "font-size: smaller;"></span>
       <br> <br>
       <div> <input type="checkbox"  id = "Masculinity" onchange="document.getElementById('myRange4').disabled = !this.checked;update_object(user_object);" />
       <label for = "Masculinity">Masculinity:</label> </div>
       <input type="range" onchange = "update_object(user_object)" min="-3" max="3" disabled value="0"  step = ".1" id = "myRange4" class = "slider">
-      <span id="demo4"></span>
+      <span id="demo4" style = "font-size: smaller;"></span>
     </div>
 
     <div class = "d2">
@@ -754,22 +757,22 @@
       <div> <input type="checkbox"  id = "Femininity" onchange="document.getElementById('myRange5').disabled = !this.checked;update_object(user_object);" />
       <label for = "Femininity">Femininity:</label> </div>
       <input type="range" onchange = "update_object(user_object)" min="-3" max="3" disabled value="0"  step = ".1" id = "myRange5" class = "slider">
-      <span id="demo5"></span>
+      <span id="demo5" style = "font-size: smaller;"></span>
       <br> <br>
       <div> <input type="checkbox"  id = "Role" onchange="document.getElementById('myRange6').disabled = !this.checked;update_object(user_object);" />
-      <label for = "Role">Role:</label> </div>
+      <label for = "Role">Social Role:</label> </div>
       <input type="range" onchange = "update_object(user_object)" min="1" max="9" disabled value="0"  step = ".1" id = "myRange6" class = "slider">
-      <span id="demo6"></span>
+      <span id="demo6" style = "font-size: smaller;"></span>
       <br> <br>
       <div> <input type="checkbox"  id = "Likeability" onchange="document.getElementById('myRange7').disabled = !this.checked;update_object(user_object);" />
       <label for = "Likeability">Likeability:</label> </div>
       <input type="range" onchange = "update_object(user_object)" min="1" max="9" disabled value="0"  step = ".1" id = "myRange7" class = "slider">
-      <span id="demo7"></span>
+      <span id="demo7" style = "font-size: smaller;"></span>
       <br> <br>
       <div> <input type="checkbox"  id = "Identity" onchange="document.getElementById('myRange8').disabled = !this.checked;update_object(user_object);" />
       <label for = "Identity">Identity Closeness:</label> </div>
       <input type="range" onchange = "update_object(user_object)" min="1" max="9" disabled value="0"  step = ".1" id = "myRange8" class = "slider">
-      <span id="demo8"></span>
+      <span id="demo8" style = "font-size: smaller;"></span>
 
     </div>
 
@@ -782,17 +785,17 @@
       <div> <input type="checkbox"  id = "Perception" onchange="document.getElementById('myRange9').disabled = !this.checked;update_object(user_object);" />
       <label for = "Perception">Perception & Interpretation:</label> </div>
       <input type="range" onchange = "update_object(user_object)" min="-3" max="3" disabled value="0"  step = ".1"  id = "myRange9" class = "slider2">
-      <span id="demo9"></span>
+      <span id="demo9" style = "font-size: smaller;"></span>
       <br> <br>
       <div> <input type="checkbox"  id = "Tactile" onchange="document.getElementById('myRange10').disabled = !this.checked;update_object(user_object);" />
       <label for = "Tactile">Tactile Interaction & Mobility:</label> </div>
       <input type="range" onchange = "update_object(user_object)" min="-3" max="3" disabled value="0"  step = ".1"  id = "myRange10" class = "slider2">
-      <span id="demo10"></span>
+      <span id="demo10" style = "font-size: smaller;"></span>
       <br> <br>
       <div> <input type="checkbox"  id = "Non_verbal" onchange="document.getElementById('myRange11').disabled = !this.checked;update_object(user_object);" />
       <label for = "Non_verbal">Non-verbal Expressiveness:</label> </div>
       <input type="range" onchange = "update_object(user_object)" min="-3" max="3" disabled value="0"  step = ".1"  id = "myRange11" class = "slider2">
-      <span id="demo11"></span>
+      <span id="demo11" style = "font-size: smaller;"></span>
     
     </div>
 <br> <br>
